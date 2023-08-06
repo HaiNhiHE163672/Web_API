@@ -14,6 +14,19 @@ namespace WA_1_1_QuanLySanPham.Controllers
         {
             hoaDonController = new HoaDonService();
         }
+        [HttpGet]
+        public IActionResult DsHoaDonTheoTG()
+        {
+            var res = hoaDonController.DsHoaDonTheoThoiGian();
+            return Ok(res);
+        }
+        [HttpGet("LocDsHoaDon")]
+        public IActionResult DsHoaDonTheoNgay(string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
+        {
+            var res = hoaDonController.LocDsHoaDon(search,nam,thang,tuNgay,denNgay,tu,den);
+            return Ok(res);
+        }
+
         [HttpPost]
         public IActionResult ThemHoaDon([FromBody] HoaDon hoaDon)
         {

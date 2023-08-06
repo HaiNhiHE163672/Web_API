@@ -149,5 +149,45 @@ namespace WA_1_1_QuanLySanPham.Services
             DbContext.SaveChanges();
             return loaiSanPham;
         }
+
+        public List<HoaDon> DsHoaDonTheoThoiGian()
+        {
+            var list = DbContext.HoaDon.Include(x => x.ChiTietHoaDons).OrderByDescending(x => x.ThoiGianTao).ToList();
+            return list;
+        }
+
+        public List<HoaDon> LocDsHoaDon(string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
+        {
+            var list = DbContext.HoaDon.Include(x => x.ChiTietHoaDons).ToList();
+            if(search != null)
+            {
+                list = list.Where(x => x.MaGiaoDich.Contains(search) || x.TenHoaDon.Contains(search)).ToList();
+            }
+            if (nam.HasValue)
+            {
+                list = list.Where(x => x.ThoiGianTao.Year == nam).ToList();
+            }
+            if(thang.HasValue)
+            {
+                list = list.Where(x => x.ThoiGianTao.Month == thang).ToList();
+            }
+            if(tuNgay.HasValue)
+            {
+                list = list.Where(x => x.ThoiGianTao.Date >= tuNgay.Value.Date).ToList();
+            }
+            if(denNgay.HasValue)
+            {
+                list = list.Where(x => x.ThoiGianTao.Date <= denNgay.Value.Date).ToList();
+            }
+            if(tu.HasValue)
+            {
+                list = list.Where(x => x.TongTien >= tu).ToList();
+            }
+            if(den.HasValue)
+            {
+                list = list.Where(x => x.TongTien <= den).ToList();
+            }
+            return list;
+        }
     }
 }
