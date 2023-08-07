@@ -15,15 +15,15 @@ namespace WA_1_1_QuanLySanPham.Controllers
             hoaDonController = new HoaDonService();
         }
         [HttpGet]
-        public IActionResult DsHoaDonTheoTG()
+        public IActionResult DsHoaDonTheoTG([FromQuery] Pagination pagination)
         {
-            var res = hoaDonController.DsHoaDonTheoThoiGian();
+            var res = hoaDonController.DsHoaDonTheoThoiGian(pagination);
             return Ok(res);
         }
         [HttpGet("LocDsHoaDon")]
-        public IActionResult DsHoaDonTheoNgay(string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
+        public IActionResult DsHoaDonTheoNgay(Pagination pagination, string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
         {
-            var res = hoaDonController.LocDsHoaDon(search,nam,thang,tuNgay,denNgay,tu,den);
+            var res = hoaDonController.LocDsHoaDon(pagination, search, nam,thang,tuNgay,denNgay,tu,den);
             return Ok(res);
         }
 

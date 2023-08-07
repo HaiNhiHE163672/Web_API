@@ -150,13 +150,15 @@ namespace WA_1_1_QuanLySanPham.Services
             return loaiSanPham;
         }
 
-        public List<HoaDon> DsHoaDonTheoThoiGian()
+        public PageResult<HoaDon> DsHoaDonTheoThoiGian(Pagination pagination)
         {
             var list = DbContext.HoaDon.Include(x => x.ChiTietHoaDons).OrderByDescending(x => x.ThoiGianTao).ToList();
-            return list;
+            var res = PageResult<HoaDon>.ToPageResult(pagination, list);
+            pagination.TotalCount = list.Count();
+            return new PageResult<HoaDon>(pagination, res);
         }
 
-        public List<HoaDon> LocDsHoaDon(string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
+        public PageResult<HoaDon> LocDsHoaDon(Pagination pagination, string? search = null, int? nam = null, int? thang = null, DateTime? tuNgay = null, DateTime? denNgay = null, double? tu = null, double? den = null)
         {
             var list = DbContext.HoaDon.Include(x => x.ChiTietHoaDons).ToList();
             if(search != null)
@@ -187,7 +189,9 @@ namespace WA_1_1_QuanLySanPham.Services
             {
                 list = list.Where(x => x.TongTien <= den).ToList();
             }
-            return list;
+            var res = PageResult<HoaDon>.ToPageResult(pagination, list);
+            pagination.TotalCount = list.Count();
+            return new PageResult<HoaDon>(pagination, res);
         }
     }
 }
