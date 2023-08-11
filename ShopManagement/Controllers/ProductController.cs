@@ -15,9 +15,21 @@ namespace ShopManagement.Controllers
             productService = new ProductService();
         }
         [HttpPost]
-        public IActionResult MuaSanPham(ProductDetail productDetail)
+        public IActionResult MuaSanPham(int productId, int quantity, int sizeId, int? colorId = null, int? designId = null)
         {
-            var res = productService.MuaSanPham(productDetail);
+            var res = productService.MuaSanPham(productId, quantity, sizeId, colorId, designId);
+            return Ok(res);
+        }
+        [HttpPut("CapNhatSoLuong")]
+        public IActionResult CapNhatSoLuong(int productId, int quantity, int sizeId, int? colorId = null, int? designId = null)
+        {
+            var res = productService.CapNhatSoLuong(productId, quantity, sizeId, colorId, designId);
+            return Ok(res);
+        }
+        [HttpGet]
+        public IActionResult DsSanPham([FromQuery] Pagination pagination)
+        {
+            var res = productService.DsSanPham(pagination);
             return Ok(res);
         }
     }

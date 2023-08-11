@@ -10,11 +10,11 @@
 
         public int ProductId { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Product? Product { get; set; }
 
         public virtual ProductDetail ProductDetail { get; set; }
 
-        public virtual PropertyDetail PropertyDetail { get; set; }
+        public virtual PropertyDetail? PropertyDetail { get; set; }
 
     }
 }

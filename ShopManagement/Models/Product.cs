@@ -6,8 +6,8 @@
 
         public string ProductName { get; set; } = null!;
 
-        public virtual ICollection<ProductDetailPropertyDetail> ProductDetailPropertyDetails { get; set; } 
+        public virtual List<ProductDetailPropertyDetail> ProductDetailPropertyDetails { get; set; } 
 
-        public virtual ICollection<Property> Properties { get; set; }
+        public virtual List<Property>? Properties { get; set; }
     }
 }
